@@ -51,7 +51,7 @@ const Table = () => {
             {users.map((user) => (
               <tr key={user.id}>
                 <td>
-                  <button type="button" class="btn btn-outline-success">
+                  <button type="button" className="btn btn-outline-success">
                     {user.status}
                   </button>
                 </td>
