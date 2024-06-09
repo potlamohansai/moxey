@@ -22,7 +22,7 @@ const Table = () => {
   };
 
   const handleRemoveUser = (userId) => {
-    setUsers(users.filter((user) => user.id != userId));
+    setUsers(users.filter((user) => user.id !== userId));
   };
   return (
     <>
