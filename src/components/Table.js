@@ -3,25 +3,21 @@ import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import "./table.css";
 import Form from "./Form";
+import dummyData from "./dummyData.js";
 
 const Table = () => {
-  const [users, setUsers] = useState([
-    {
-      status: "pending",
-      id: 1563783,
-      email: "potla@gmail.com",
-      firstName: "Mohan",
-      lastName: "potla",
-      role: "agent",
-      expiryBy: "14-06-2024",
-      actions: "Delete",
-    },
-  ]);
+  const [users, setUsers] = useState(dummyData);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleAddUser = (data) => {
-    const newUser = { ...data, id: Date.now() };
+    const newUser = {
+      ...data,
+      id: Date.now(),
+      status: "ACTIVE",
+      expiryBy: "12-06-2025",
+    };
     setUsers([...users, newUser]);
+    console.log(users);
     setIsDrawerOpen(false);
   };
 
@@ -51,17 +47,46 @@ const Table = () => {
               <th>ACTIONS</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="table-white">
             {users.map((user) => (
-              <tr>
-                <td>{user.status}</td>
+              <tr key={user.id}>
+                <td>
+                  <button type="button" class="btn btn-outline-success">
+                    {user.status}
+                  </button>
+                </td>
                 <td>{user.id}</td>
                 <td>{user.email}</td>
                 <td>{user.firstName}</td>
                 <td>{user.lastName}</td>
                 <td>{user.role}</td>
                 <td>{user.expiryBy}</td>
-                <td>{user.actions}</td>
+                <td>
+                  <div className="dropdown">
+                    <button
+                      className="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Actions
+                    </button>
+                    <ul
+                      className="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <li>
+                        <button
+                          className="dropdown-item"
+                          onClick={() => handleRemoveUser(user.id)}
+                        >
+                          Remove User
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>

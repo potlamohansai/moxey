@@ -19,6 +19,7 @@ const Form = ({ onSubmit }) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const {
@@ -36,8 +37,13 @@ const Form = ({ onSubmit }) => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error Loading Countries.</div>;
 
+  const onSubmitWithReset = (data) => {
+    onSubmit(data);
+    reset();
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmitWithReset)}>
       {/*.....................................COUNTRY DIVISION...........................*/}
       <div className="mb-3">
         <label htmlFor="country" className="form-label">
@@ -71,9 +77,9 @@ const Form = ({ onSubmit }) => {
           {...register("role", { required: "Required Field" })}
         >
           <option value="">Select a role</option>
-          <option value="role1">Role 1</option>
-          <option value="role2">Role 2</option>
-          <option value="role3">Role 3</option>
+          <option value="Role 1">Role 1</option>
+          <option value="Role 2">Role 2</option>
+          <option value="Role 3">Role 3</option>
         </select>
         {errors.role && (
           <div className="text-danger">{errors.role.message}</div>
@@ -225,16 +231,18 @@ const Form = ({ onSubmit }) => {
           <div className="text-danger">{errors.paymentLimit.message}</div>
         )}
       </div>
-      <button type="submit" className="btn btn-primary">
-        +Add User
-      </button>
-      <button
-        type="button"
-        className="btn btn-secondary"
-        onClick={() => window.location.reload()}
-      >
-        Cancel
-      </button>
+      <div className="buttons">
+        <button type="submit" className="btn btn-primary">
+          +Add User
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={() => window.location.reload()}
+        >
+          Cancel
+        </button>
+      </div>
     </form>
   );
 };

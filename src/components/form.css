@@ -4,7 +4,8 @@
   justify-content: space-between;
   margin-top: 10px;
 }
-.mobile {
+.mobile,
+.buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
